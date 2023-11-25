@@ -1,5 +1,5 @@
 //
-//  ProifleView.swift
+//  ProfileView.swift
 //  fit-in
 //
 //  Created by MacBook Pro on 25/11/23.
@@ -22,38 +22,55 @@ struct ProfileView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("My name")) {
+                Section(header: Text("My name"), footer: Text("This is how your name will be displayed in the app, we do not save nor make your name as identifiable data.")) {
                     TextField("First Name", text: $firstName)
                     TextField("Last Name", text: $lastName)
                 }
-                Section(header: Text("Personal Information")) {
-                    TextField("Age", text: $age)
-                        .keyboardType(.numberPad)
-                    TextField("Weight", text: $weight)
-                        .keyboardType(.numberPad)
-                    TextField("Height", text: $height)
-                        .keyboardType(.numberPad)
-                    
+                Section(header: Text("Personal Information"), footer: Text("Your data is stored locally on your device, we do not collect your data.")) {
+                    HStack {
+                        if !age.isEmpty {
+                            Text("Age")
+                        }
+                        TextField("Age", text: $age)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(age.isEmpty ? .leading : .trailing)
+                    }
+                    HStack {
+                        if !weight.isEmpty {
+                            Text("Weight")
+                        }
+                        TextField("Weight", text: $weight)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(weight.isEmpty ? .leading : .trailing)
+                    }
+                    HStack {
+                        if !height.isEmpty {
+                            Text("Height")
+                        }
+                        TextField("Height", text: $height)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(height.isEmpty ? .leading : .trailing)
+                    }
                     Picker("Gender", selection: $isMale) {
                         Text("Male").tag(true)
                         Text("Female").tag(false)
                     }
                     .pickerStyle(PalettePickerStyle())
                 }
-                
-                Section {
+                HStack {
+                    Spacer()
                     Button("Save") {
-                        print("here")
                         saveUserData()
                     }
+                    Spacer()
                 }
             }
-            .navigationTitle("Fit In")
+            .navigationTitle("Profile")
             .onAppear {
                 fetchUserData()
             }
             .alert(isPresented: $isShowingAlert) {
-                Alert(title: Text("Data Updated"),
+                Alert(title: Text("Howdy.."),
                       message: Text(alertMessage),
                       dismissButton: .default(Text("Got it")))
             }
@@ -85,7 +102,8 @@ struct ProfileView: View {
         guard let age = Int16(age),
               let weight = Int16(weight),
               let height = Int16(height) else {
-            // TODO: Handle invalid input
+            isShowingAlert = true
+            alertMessage = "Please enter valid data"
             
             return
         }
@@ -119,7 +137,8 @@ struct ProfileView: View {
             isShowingAlert = true
             alertMessage = "Data updated successfully"
         } catch {
-            // TODO: Handle the Core Data save error
+            isShowingAlert = true
+            alertMessage = "Error saving data"
             print("Error saving data: \(error.localizedDescription)")
         }
     }
@@ -127,5 +146,5 @@ struct ProfileView: View {
 
 
 #Preview {
-    ProfileView()
+    ProfileView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

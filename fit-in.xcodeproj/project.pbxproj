@@ -444,6 +444,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"fit-in/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMotionUsageDescription = "Allow Motion Access to make steps and calorie counter working";
+				INFOPLIST_KEY_NSSensorKitUsageDescription = "Allow Motion Access to make steps and calories counter working";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -472,6 +474,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"fit-in/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMotionUsageDescription = "Allow Motion Access to make steps and calorie counter working";
+				INFOPLIST_KEY_NSSensorKitUsageDescription = "Allow Motion Access to make steps and calories counter working";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
