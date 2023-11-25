@@ -1,5 +1,5 @@
 //
-//  OnBoardingView.swift
+//  ProifleView.swift
 //  fit-in
 //
 //  Created by MacBook Pro on 25/11/23.
@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct OnBoardingView: View {
+struct ProfileView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var firstName = ""
     @State private var lastName = ""
@@ -16,6 +16,8 @@ struct OnBoardingView: View {
     @State private var weight = ""
     @State private var height = ""
     @State private var isMale = true // Assuming true for male, false for female
+    @State private var isShowingAlert = false
+    @State private var alertMessage = ""
     
     var body: some View {
         NavigationView {
@@ -41,6 +43,7 @@ struct OnBoardingView: View {
                 
                 Section {
                     Button("Save") {
+                        print("here")
                         saveUserData()
                     }
                 }
@@ -48,6 +51,11 @@ struct OnBoardingView: View {
             .navigationTitle("Fit In")
             .onAppear {
                 fetchUserData()
+            }
+            .alert(isPresented: $isShowingAlert) {
+                Alert(title: Text("Data Updated"),
+                      message: Text(alertMessage),
+                      dismissButton: .default(Text("Got it")))
             }
         }
     }
@@ -63,9 +71,9 @@ struct OnBoardingView: View {
                 // Populate fields with fetched data
                 firstName = user.firstName ?? ""
                 lastName = user.lastName ?? ""
-                age = "\(user.age)" 
-                weight = "\(user.weight)" 
-                height = "\(user.height)" 
+                age = "\(user.age)"
+                weight = "\(user.weight)"
+                height = "\(user.height)"
                 isMale = user.gender
             }
         } catch {
@@ -81,22 +89,35 @@ struct OnBoardingView: View {
             
             return
         }
-
+        
         let request: NSFetchRequest<UserData> = UserData.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", NSNumber(value: 1))
-
+        
         do {
             let userData = try viewContext.fetch(request)
             if let user = userData.first {
+                // Update existing record
                 user.firstName = firstName
                 user.lastName = lastName
                 user.age = age
                 user.weight = weight
                 user.height = height
                 user.gender = isMale
-
-                try viewContext.save()
+            } else {
+                // Create new record if no data exists
+                let newUser = UserData(context: viewContext)
+                newUser.id = 1
+                newUser.firstName = firstName
+                newUser.lastName = lastName
+                newUser.age = age
+                newUser.weight = weight
+                newUser.height = height
+                newUser.gender = isMale
             }
+            
+            try viewContext.save()
+            isShowingAlert = true
+            alertMessage = "Data updated successfully"
         } catch {
             // TODO: Handle the Core Data save error
             print("Error saving data: \(error.localizedDescription)")
@@ -106,5 +127,5 @@ struct OnBoardingView: View {
 
 
 #Preview {
-    OnBoardingView()
+    ProfileView()
 }

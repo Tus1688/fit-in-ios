@@ -16,26 +16,32 @@ struct ContentView: View {
         animation: .default)
     private var userData: FetchedResults<UserData>
     
+    @State private var selectedTab = 0
     
     var body: some View {
-        NavigationView {
-            if userData.isEmpty {
-                OnBoardingView()
-            } else {
-                VStack {
-                    Text("Hello blabla")
-                        .navigationTitle("Welcome \(userData[0].firstName ?? "Unknown")")
-                    
-                    Spacer()
-                    
-                    NavigationLink(destination: OnBoardingView()) {
-                        Text("Go to Onboarding")
-                            .padding()
-                    }
+        TabView(selection: $selectedTab) {
+            SummaryView()
+                .tabItem {
+                    Text("Summary")
+                    Image(systemName: "chart.bar.fill")
                 }
-                .navigationTitle("Welcome \(userData[0].firstName ?? "Unknown")")
-            }
+                .tag(0)
+            
+            ProfileView()
+                .tabItem {
+                    Text("Profile")
+                    Image(systemName: "person.fill")
+                }
+                .tag(2)
+            
+            FoodView()
+                .tabItem {
+                    Text("Food")
+                    Image(systemName: "leaf.fill")
+                }
+                .tag(3)
         }
+        .edgesIgnoringSafeArea(.top)
     }
 }
 
