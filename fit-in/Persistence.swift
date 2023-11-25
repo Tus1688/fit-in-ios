@@ -21,6 +21,7 @@ struct PersistenceController {
         newUserData.age = 21
         newUserData.weight = 70
         newUserData.height = 170
+        newUserData.gender = true
         
         do {
             try viewContext.save()

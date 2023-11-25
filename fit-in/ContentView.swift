@@ -34,10 +34,9 @@ struct ContentView: View {
                 }
                 .tag(3)
         }
-        .edgesIgnoringSafeArea(.top)
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

@@ -20,7 +20,7 @@ struct ProfileView: View {
     @State private var alertMessage = ""
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section(header: Text("My name"), footer: Text("This is how your name will be displayed in the app, we do not save nor make your name as identifiable data.")) {
                     TextField("First Name", text: $firstName)
