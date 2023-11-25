@@ -50,10 +50,10 @@ struct SummaryView: View {
                 NavigationStack {
                     VStack {
                         HStack {
-                            
+                            CaloriesView()
+                            CaloriesView()
                         }
                     }
-                    .padding()
                     .navigationTitle("Hello, \(user.firstName!)")
                 }
             }

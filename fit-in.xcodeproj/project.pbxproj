@@ -19,6 +19,7 @@
 		04AA17F62B11B2D000F909AD /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17F52B11B2D000F909AD /* ProfileView.swift */; };
 		04AA17F82B11C86C00F909AD /* FoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17F72B11C86C00F909AD /* FoodView.swift */; };
 		04AA17FA2B11D4B400F909AD /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17F92B11D4B400F909AD /* SummaryView.swift */; };
+		04AA17FD2B12390900F909AD /* CaloriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17FC2B12390900F909AD /* CaloriesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		04AA17F52B11B2D000F909AD /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		04AA17F72B11C86C00F909AD /* FoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodView.swift; sourceTree = "<group>"; };
 		04AA17F92B11D4B400F909AD /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		04AA17FC2B12390900F909AD /* CaloriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				04AA17F52B11B2D000F909AD /* ProfileView.swift */,
 				04AA17F72B11C86C00F909AD /* FoodView.swift */,
 				04AA17F92B11D4B400F909AD /* SummaryView.swift */,
+				04AA17FC2B12390900F909AD /* CaloriesView.swift */,
 			);
 			path = "fit-in";
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			files = (
 				04AA17F82B11C86C00F909AD /* FoodView.swift in Sources */,
 				04AA17FA2B11D4B400F909AD /* SummaryView.swift in Sources */,
+				04AA17FD2B12390900F909AD /* CaloriesView.swift in Sources */,
 				0425244D2B10DDFD00C70B35 /* fit_in.xcdatamodeld in Sources */,
 				0425244A2B10DDFD00C70B35 /* Persistence.swift in Sources */,
 				042524432B10DDFC00C70B35 /* ContentView.swift in Sources */,

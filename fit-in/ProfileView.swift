@@ -121,6 +121,7 @@ struct ProfileView: View {
                 user.weight = weight
                 user.height = height
                 user.gender = isMale
+                user.bmr = calculateBMR() ?? 0.0
             } else {
                 // Create new record if no data exists
                 let newUser = UserData(context: viewContext)
@@ -131,6 +132,7 @@ struct ProfileView: View {
                 newUser.weight = weight
                 newUser.height = height
                 newUser.gender = isMale
+                newUser.bmr = calculateBMR() ?? 0.0
             }
             
             try viewContext.save()
@@ -141,6 +143,26 @@ struct ProfileView: View {
             alertMessage = "Error saving data"
             print("Error saving data: \(error.localizedDescription)")
         }
+    }
+    
+    private func calculateBMR() -> Double? {
+        guard let age = Double(age),
+              let weight = Double(weight),
+              let height = Double(height) else {
+            return nil
+        }
+        
+        var bmr: Double = 0.0
+        
+        if isMale {
+            // For males: BMR = 88.362 + (13.397 × weight in kg) + (4.799 × height in cm) - (5.677 × age in years)
+            bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
+        } else {
+            // For females: BMR = 447.593 + (9.247 × weight in kg) + (3.098 × height in cm) - (4.330 × age in years)
+            bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
+        }
+        
+        return bmr
     }
 }
 
