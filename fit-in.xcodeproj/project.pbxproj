@@ -16,6 +16,7 @@
 		042524572B10DDFD00C70B35 /* fit_inTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042524562B10DDFD00C70B35 /* fit_inTests.swift */; };
 		042524612B10DDFD00C70B35 /* fit_inUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042524602B10DDFD00C70B35 /* fit_inUITests.swift */; };
 		042524632B10DDFD00C70B35 /* fit_inUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042524622B10DDFD00C70B35 /* fit_inUITestsLaunchTests.swift */; };
+		04AA17F62B11B2D000F909AD /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17F52B11B2D000F909AD /* OnBoardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		0425245C2B10DDFD00C70B35 /* fit-inUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "fit-inUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		042524602B10DDFD00C70B35 /* fit_inUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fit_inUITests.swift; sourceTree = "<group>"; };
 		042524622B10DDFD00C70B35 /* fit_inUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fit_inUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		04AA17F52B11B2D000F909AD /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				042524492B10DDFD00C70B35 /* Persistence.swift */,
 				0425244B2B10DDFD00C70B35 /* fit_in.xcdatamodeld */,
 				042524462B10DDFD00C70B35 /* Preview Content */,
+				04AA17F52B11B2D000F909AD /* OnBoardingView.swift */,
 			);
 			path = "fit-in";
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				0425244D2B10DDFD00C70B35 /* fit_in.xcdatamodeld in Sources */,
 				0425244A2B10DDFD00C70B35 /* Persistence.swift in Sources */,
 				042524432B10DDFC00C70B35 /* ContentView.swift in Sources */,
+				04AA17F62B11B2D000F909AD /* OnBoardingView.swift in Sources */,
 				042524412B10DDFC00C70B35 /* fit_inApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
