@@ -122,6 +122,7 @@ struct ProfileView: View {
                 user.height = height
                 user.gender = isMale
                 user.bmr = calculateBMR() ?? 0.0
+                user.calorieTarget = calculateBMR() ?? 0.0
             } else {
                 // Create new record if no data exists
                 let newUser = UserData(context: viewContext)
@@ -133,6 +134,7 @@ struct ProfileView: View {
                 newUser.height = height
                 newUser.gender = isMale
                 newUser.bmr = calculateBMR() ?? 0.0
+                newUser.calorieTarget = calculateBMR() ?? 0.0
             }
             
             try viewContext.save()

@@ -21,6 +21,8 @@ struct PersistenceController {
         newUserData.age = 21
         newUserData.weight = 70
         newUserData.height = 170
+        newUserData.calorieTarget = 2000
+        newUserData.bmr = 2000
         newUserData.gender = true
         
         do {

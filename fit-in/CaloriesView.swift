@@ -8,67 +8,76 @@
 import SwiftUI
 import Charts
 
-struct Product: Identifiable {
-    let id = UUID()
-    let title: String
-    let revenue: Double
-}
-
 struct CaloriesView: View {
-    @State private var products: [Product] = [
-        .init(title: "Annual", revenue: 0.7),
-        .init(title: "bla", revenue: 0.3),
-    ]
-    let chartColors: [Color] = [
-        Color(.green),
-        Color(.clear),
-    ]
-
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \UserData.id, ascending: true)],
+        animation: .default)
+    private var users: FetchedResults<UserData>
+    
+    // TODO: retrieve daily calories intake
+    let eaten = 1400.0
+    
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                HStack {
-                    Text("Calories")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                }
-                ZStack {
-                    Chart(products) { product in
-                        let index = products.firstIndex { $0.id == product.id } ?? 0
-                        let color = index < chartColors.count ? chartColors[index] : .clear
-
-                        SectorMark(
-                            angle: .value(
-                                Text(verbatim: product.title),
-                                product.revenue
-                            ),
-                            innerRadius: .ratio(0.95)
-                        )
-                        .foregroundStyle(color)
-                    }
-                    .chartLegend(.hidden)
+        NavigationLink(destination: CalorieSettingView()) {
+            if let user = users.first {
+                GeometryReader { geometry in
                     VStack {
-                        Text("500")
-                            .font(.headline)
-                            .fontWeight(.black)
-                        Text("Kcal left")
-                            .font(.caption)
-                            .fontWeight(.medium)
+                        HStack {
+                            Text("Calories")
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                        }
+                        ZStack {
+                            Chart() {
+                                SectorMark(angle: .value(
+                                    Text("Eaten"), eaten), innerRadius: .ratio(0.95))
+                                .foregroundStyle(.green)
+                                SectorMark(angle: .value(
+                                    Text("Left"), max(user.calorieTarget - eaten, 0)), innerRadius: .ratio(0.95))
+                                .foregroundStyle(.clear)
+                            }
+                            VStack {
+                                Text(String(format: "%.f", max(user.calorieTarget - eaten, 0)))
+                                    .font(.headline)
+                                    .fontWeight(.black)
+                                Text("Kcal left")
+                                    .font(.caption)
+                                    .fontWeight(.medium)
+                            }
+                        }
+                        .padding(.vertical)
+                        HStack {
+                            Text("Eaten")
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .italic()
+                            Spacer()
+                            Text(String(format: "%.f kcal", eaten))
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .italic()
+                        }
                     }
+                    .padding()
+                    .frame(height: geometry.size.height / 2.5)
+                    .background(.ultraThickMaterial)
+                    .cornerRadius(10)
+                    .padding()
                 }
+            } else {
+                Text("No data")
             }
-            .padding()
-            .frame(height: geometry.size.height / 3)
-            .background(.ultraThickMaterial)
-            .cornerRadius(10)
-            .padding()
         }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
 
 #Preview {
-    CaloriesView()
+    CaloriesView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+
 }
