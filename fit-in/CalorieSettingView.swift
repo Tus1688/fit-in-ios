@@ -10,15 +10,17 @@ import CoreData
 
 struct CalorieSettingView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @State private var target:Double = 0.0
+    @State private var target = 0.0
     @State private var isShowingAlert = false
     @State private var alertMessage = ""
+    @State private var bmr = 0.0
     
     var body: some View {
         NavigationStack{
             VStack(spacing: 16) {
-                Text("Set a goal based on how much calories, or how much calories you'd like to be, each day")
+                Text("Set a goal based on how much calories, or how much calories you'd like to be, each day (Your BMR is \(String(format: "%.f", bmr)) kcal/day)")
                 Spacer()
+                
                 VStack {
                     HStack(spacing: 40) {
                         Button {
@@ -78,6 +80,7 @@ struct CalorieSettingView: View {
             let userData = try viewContext.fetch(request)
             if let user = userData.first {
                 target = user.calorieTarget
+                bmr = user.bmr
             }
         } catch {
             isShowingAlert = true
