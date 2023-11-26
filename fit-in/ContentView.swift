@@ -9,13 +9,6 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \UserData.age, ascending: true)],
-        animation: .default)
-    private var userData: FetchedResults<UserData>
-    
     @State private var selectedTab = 0
     
     var body: some View {
@@ -41,7 +34,6 @@ struct ContentView: View {
                 }
                 .tag(3)
         }
-        .edgesIgnoringSafeArea(.top)
     }
 }
 

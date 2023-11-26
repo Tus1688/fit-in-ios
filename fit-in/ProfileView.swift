@@ -1,5 +1,5 @@
 //
-//  ProifleView.swift
+//  ProfileView.swift
 //  fit-in
 //
 //  Created by MacBook Pro on 25/11/23.
@@ -20,40 +20,57 @@ struct ProfileView: View {
     @State private var alertMessage = ""
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
-                Section(header: Text("My name")) {
+                Section(header: Text("My name"), footer: Text("This is how your name will be displayed in the app, we do not save nor make your name as identifiable data.")) {
                     TextField("First Name", text: $firstName)
                     TextField("Last Name", text: $lastName)
                 }
-                Section(header: Text("Personal Information")) {
-                    TextField("Age", text: $age)
-                        .keyboardType(.numberPad)
-                    TextField("Weight", text: $weight)
-                        .keyboardType(.numberPad)
-                    TextField("Height", text: $height)
-                        .keyboardType(.numberPad)
-                    
+                Section(header: Text("Personal Information"), footer: Text("Your data is stored locally on your device, we do not collect your data.")) {
+                    HStack {
+                        if !age.isEmpty {
+                            Text("Age")
+                        }
+                        TextField("Age", text: $age)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(age.isEmpty ? .leading : .trailing)
+                    }
+                    HStack {
+                        if !weight.isEmpty {
+                            Text("Weight")
+                        }
+                        TextField("Weight", text: $weight)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(weight.isEmpty ? .leading : .trailing)
+                    }
+                    HStack {
+                        if !height.isEmpty {
+                            Text("Height")
+                        }
+                        TextField("Height", text: $height)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(height.isEmpty ? .leading : .trailing)
+                    }
                     Picker("Gender", selection: $isMale) {
                         Text("Male").tag(true)
                         Text("Female").tag(false)
                     }
                     .pickerStyle(PalettePickerStyle())
                 }
-                
-                Section {
+                HStack {
+                    Spacer()
                     Button("Save") {
-                        print("here")
                         saveUserData()
                     }
+                    Spacer()
                 }
             }
-            .navigationTitle("Fit In")
+            .navigationTitle("Profile")
             .onAppear {
                 fetchUserData()
             }
             .alert(isPresented: $isShowingAlert) {
-                Alert(title: Text("Data Updated"),
+                Alert(title: Text("Howdy.."),
                       message: Text(alertMessage),
                       dismissButton: .default(Text("Got it")))
             }
@@ -85,7 +102,8 @@ struct ProfileView: View {
         guard let age = Int16(age),
               let weight = Int16(weight),
               let height = Int16(height) else {
-            // TODO: Handle invalid input
+            isShowingAlert = true
+            alertMessage = "Please enter valid data"
             
             return
         }
@@ -103,6 +121,8 @@ struct ProfileView: View {
                 user.weight = weight
                 user.height = height
                 user.gender = isMale
+                user.bmr = calculateBMR() ?? 0.0
+                user.calorieTarget = calculateBMR() ?? 0.0
             } else {
                 // Create new record if no data exists
                 let newUser = UserData(context: viewContext)
@@ -113,19 +133,42 @@ struct ProfileView: View {
                 newUser.weight = weight
                 newUser.height = height
                 newUser.gender = isMale
+                newUser.bmr = calculateBMR() ?? 0.0
+                newUser.calorieTarget = calculateBMR() ?? 0.0
             }
             
             try viewContext.save()
             isShowingAlert = true
             alertMessage = "Data updated successfully"
         } catch {
-            // TODO: Handle the Core Data save error
+            isShowingAlert = true
+            alertMessage = "Error saving data"
             print("Error saving data: \(error.localizedDescription)")
         }
+    }
+    
+    private func calculateBMR() -> Double? {
+        guard let age = Double(age),
+              let weight = Double(weight),
+              let height = Double(height) else {
+            return nil
+        }
+        
+        var bmr: Double = 0.0
+        
+        if isMale {
+            // For males: BMR = 88.362 + (13.397 × weight in kg) + (4.799 × height in cm) - (5.677 × age in years)
+            bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)
+        } else {
+            // For females: BMR = 447.593 + (9.247 × weight in kg) + (3.098 × height in cm) - (4.330 × age in years)
+            bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)
+        }
+        
+        return bmr
     }
 }
 
 
 #Preview {
-    ProfileView()
+    ProfileView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
