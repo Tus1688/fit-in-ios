@@ -18,6 +18,7 @@ struct ProfileView: View {
     @State private var isMale = true // Assuming true for male, false for female
     @State private var isShowingAlert = false
     @State private var alertMessage = ""
+    @State private var waterIntake = 8
     
     var body: some View {
         NavigationStack {
@@ -57,6 +58,13 @@ struct ProfileView: View {
                     }
                     .pickerStyle(PalettePickerStyle())
                 }
+                Section(header: Text("Diet Preferences"), footer: Text("Again.. Your data is stored locally too, You can change this data later")) {
+                    Picker("Daily Water Intake", selection: $waterIntake)  {
+                        ForEach(1 ..< 21, id: \.self) { cups in
+                            Text("\(cups) cups")
+                        }
+                    }
+                }
                 HStack {
                     Spacer()
                     Button("Save") {
@@ -92,6 +100,7 @@ struct ProfileView: View {
                 weight = "\(user.weight)"
                 height = "\(user.height)"
                 isMale = user.gender
+                waterIntake = Int(user.waterIntakeTarget)
             }
         } catch {
             print("Error fetching data: \(error.localizedDescription)")
@@ -123,6 +132,7 @@ struct ProfileView: View {
                 user.gender = isMale
                 user.bmr = calculateBMR() ?? 0.0
                 user.calorieTarget = calculateBMR() ?? 0.0
+                user.waterIntakeTarget = Int16(waterIntake)
             } else {
                 // Create new record if no data exists
                 let newUser = UserData(context: viewContext)
@@ -135,6 +145,7 @@ struct ProfileView: View {
                 newUser.gender = isMale
                 newUser.bmr = calculateBMR() ?? 0.0
                 newUser.calorieTarget = calculateBMR() ?? 0.0
+                newUser.waterIntakeTarget = Int16(waterIntake)
             }
             
             try viewContext.save()

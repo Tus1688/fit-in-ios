@@ -49,11 +49,12 @@ struct SummaryView: View {
             if let user = users.first {
                 NavigationStack {
                     VStack {
-                        HStack {
+                        HStack(spacing: 24) {
                             CaloriesView()
-                            CaloriesView()
+                            WaterIntakeView()
                         }
                     }
+                    .padding()
                     .navigationTitle("Hello, \(user.firstName!)")
                 }
             }

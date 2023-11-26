@@ -66,7 +66,6 @@ struct CaloriesView: View {
                     .frame(height: geometry.size.height / 2.5)
                     .background(.ultraThickMaterial)
                     .cornerRadius(10)
-                    .padding()
                 }
             } else {
                 Text("No data")
