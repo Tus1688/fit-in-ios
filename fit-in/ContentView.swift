@@ -30,7 +30,7 @@ struct ContentView: View {
             FoodView()
                 .tabItem {
                     Text("Food")
-                    Image(systemName: "leaf.fill")
+                    Image(systemName: "fork.knife")
                 }
                 .tag(3)
         }

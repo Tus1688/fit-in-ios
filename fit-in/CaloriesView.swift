@@ -22,51 +22,48 @@ struct CaloriesView: View {
     var body: some View {
         NavigationLink(destination: CalorieSettingView()) {
             if let user = users.first {
-                GeometryReader { geometry in
-                    VStack {
-                        HStack {
-                            Text("Calories")
+                VStack {
+                    HStack {
+                        Text("Calories")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                    }
+                    ZStack {
+                        Chart() {
+                            SectorMark(angle: .value(
+                                Text("Eaten"), eaten), innerRadius: .ratio(0.95))
+                            .foregroundStyle(.green)
+                            SectorMark(angle: .value(
+                                Text("Left"), max(user.calorieTarget - eaten, 0)), innerRadius: .ratio(0.95))
+                            .foregroundStyle(.clear)
+                        }
+                        VStack {
+                            Text(String(format: "%.f", max(user.calorieTarget - eaten, 0)))
                                 .font(.headline)
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.leading)
-                            Spacer()
-                        }
-                        ZStack {
-                            Chart() {
-                                SectorMark(angle: .value(
-                                    Text("Eaten"), eaten), innerRadius: .ratio(0.95))
-                                .foregroundStyle(.green)
-                                SectorMark(angle: .value(
-                                    Text("Left"), max(user.calorieTarget - eaten, 0)), innerRadius: .ratio(0.95))
-                                .foregroundStyle(.clear)
-                            }
-                            VStack {
-                                Text(String(format: "%.f", max(user.calorieTarget - eaten, 0)))
-                                    .font(.headline)
-                                    .fontWeight(.black)
-                                Text("Kcal left")
-                                    .font(.caption)
-                                    .fontWeight(.medium)
-                            }
-                        }
-                        .padding(.vertical)
-                        HStack {
-                            Text("Eaten")
+                                .fontWeight(.black)
+                            Text("Kcal left")
                                 .font(.caption)
-                                .fontWeight(.semibold)
-                                .italic()
-                            Spacer()
-                            Text(String(format: "%.f kcal", eaten))
-                                .font(.caption)
-                                .fontWeight(.semibold)
-                                .italic()
+                                .fontWeight(.medium)
                         }
                     }
-                    .padding()
-                    .frame(height: geometry.size.height / 2.5)
-                    .background(.ultraThickMaterial)
-                    .cornerRadius(10)
+                    .padding(.vertical)
+                    HStack {
+                        Text("Eaten")
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .italic()
+                        Spacer()
+                        Text(String(format: "%.f kcal", eaten))
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .italic()
+                    }
                 }
+                .padding()
+                .background(.ultraThickMaterial)
+                .cornerRadius(10)
             } else {
                 Text("No data")
             }
@@ -78,5 +75,5 @@ struct CaloriesView: View {
 
 #Preview {
     CaloriesView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-
+    
 }

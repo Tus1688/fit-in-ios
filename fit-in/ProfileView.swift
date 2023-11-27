@@ -16,9 +16,10 @@ struct ProfileView: View {
     @State private var weight = ""
     @State private var height = ""
     @State private var isMale = true // Assuming true for male, false for female
+    @State private var waterIntake = 8
+    @State private var stepTarget = ""
     @State private var isShowingAlert = false
     @State private var alertMessage = ""
-    @State private var waterIntake = 8
     
     var body: some View {
         NavigationStack {
@@ -64,6 +65,14 @@ struct ProfileView: View {
                             Text("\(cups) cups")
                         }
                     }
+                    HStack {
+                        if !stepTarget.isEmpty {
+                            Text("Steps")
+                        }
+                        TextField("Steps", text: $stepTarget)
+                            .keyboardType(.numberPad)
+                            .multilineTextAlignment(stepTarget.isEmpty ? .leading : .trailing)
+                    }
                 }
                 HStack {
                     Spacer()
@@ -101,6 +110,7 @@ struct ProfileView: View {
                 height = "\(user.height)"
                 isMale = user.gender
                 waterIntake = Int(user.waterIntakeTarget)
+                stepTarget = "\(user.stepsTarget)"
             }
         } catch {
             print("Error fetching data: \(error.localizedDescription)")
@@ -110,7 +120,8 @@ struct ProfileView: View {
     private func saveUserData() {
         guard let age = Int16(age),
               let weight = Int16(weight),
-              let height = Int16(height) else {
+              let height = Int16(height),
+              let stepTarget = Int16(stepTarget) else {
             isShowingAlert = true
             alertMessage = "Please enter valid data"
             
@@ -133,6 +144,7 @@ struct ProfileView: View {
                 user.bmr = calculateBMR() ?? 0.0
                 user.calorieTarget = calculateBMR() ?? 0.0
                 user.waterIntakeTarget = Int16(waterIntake)
+                user.stepsTarget = Int16(stepTarget)
             } else {
                 // Create new record if no data exists
                 let newUser = UserData(context: viewContext)
@@ -146,6 +158,7 @@ struct ProfileView: View {
                 newUser.bmr = calculateBMR() ?? 0.0
                 newUser.calorieTarget = calculateBMR() ?? 0.0
                 newUser.waterIntakeTarget = Int16(waterIntake)
+                newUser.stepsTarget = Int16(stepTarget)
             }
             
             try viewContext.save()

@@ -22,49 +22,46 @@ struct WaterIntakeView: View {
     var body: some View {
         NavigationLink(destination: WaterIntakeDetailView()) {
             if let user = users.first {
-                GeometryReader { geometry in
-                    VStack {
-                        HStack {
-                            Text("Water Intake")
+                VStack {
+                    HStack {
+                        Text("Water")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                    }
+                    ZStack {
+                        Chart{
+                            SectorMark(angle: .value(Text("Drank"), drank), innerRadius: .ratio(0.95))
+                                .foregroundStyle(.blue)
+                            SectorMark(angle: .value (Text("Left"), max(Int(user.waterIntakeTarget) - drank, 0)), innerRadius: .ratio(0.95))
+                                .foregroundStyle(.clear)
+                        }
+                        VStack {
+                            Text(String(format: "%d", max(Int(user.waterIntakeTarget) - drank, 0)))
                                 .font(.headline)
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.leading)
-                            Spacer()
-                        }
-                        ZStack {
-                            Chart{
-                                SectorMark(angle: .value(Text("Drank"), drank), innerRadius: .ratio(0.95))
-                                    .foregroundStyle(.blue)
-                                SectorMark(angle: .value (Text("Left"), max(Int(user.waterIntakeTarget) - drank, 0)), innerRadius: .ratio(0.95))
-                                    .foregroundStyle(.clear)
-                            }
-                            VStack {
-                                Text(String(format: "%d", max(Int(user.waterIntakeTarget) - drank, 0)))
-                                    .font(.headline)
-                                    .fontWeight(.black)
-                                Text("cups left")
-                                    .font(.caption)
-                                    .fontWeight(.medium)
-                            }
-                        }
-                        .padding(.vertical)
-                        HStack {
-                            Text("Drank")
+                                .fontWeight(.black)
+                            Text("cups left")
                                 .font(.caption)
-                                .fontWeight(.semibold)
-                                .italic()
-                            Spacer()
-                            Text(String(format: "%d cups", drank))
-                                .font(.caption)
-                                .fontWeight(.semibold)
-                                .italic()
+                                .fontWeight(.medium)
                         }
                     }
-                    .padding()
-                    .frame(height: geometry.size.height / 2.5)
-                    .background(.ultraThickMaterial)
-                    .cornerRadius(10)
+                    .padding(.vertical)
+                    HStack {
+                        Text("Drank")
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .italic()
+                        Spacer()
+                        Text(String(format: "%d cups", drank))
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .italic()
+                    }
                 }
+                .padding()
+                .background(.ultraThickMaterial)
+                .cornerRadius(10)
             }
         }
         .onAppear {

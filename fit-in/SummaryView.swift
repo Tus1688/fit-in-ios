@@ -48,9 +48,13 @@ struct SummaryView: View {
         else{
             if let user = users.first {
                 NavigationStack {
-                    VStack {
+                    VStack(spacing: 24) {
                         HStack(spacing: 24) {
                             CaloriesView()
+                            WaterIntakeView()
+                        }
+                        HStack(spacing: 24) {
+                            StepsView()
                             WaterIntakeView()
                         }
                     }
