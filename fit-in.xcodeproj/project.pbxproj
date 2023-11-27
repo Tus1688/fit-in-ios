@@ -16,11 +16,16 @@
 		042524572B10DDFD00C70B35 /* fit_inTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042524562B10DDFD00C70B35 /* fit_inTests.swift */; };
 		042524612B10DDFD00C70B35 /* fit_inUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042524602B10DDFD00C70B35 /* fit_inUITests.swift */; };
 		042524632B10DDFD00C70B35 /* fit_inUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042524622B10DDFD00C70B35 /* fit_inUITestsLaunchTests.swift */; };
+		043F7C8E2B14877800A0432F /* DistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F7C8D2B14877800A0432F /* DistanceView.swift */; };
 		04AA17F62B11B2D000F909AD /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17F52B11B2D000F909AD /* ProfileView.swift */; };
 		04AA17F82B11C86C00F909AD /* FoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17F72B11C86C00F909AD /* FoodView.swift */; };
 		04AA17FA2B11D4B400F909AD /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17F92B11D4B400F909AD /* SummaryView.swift */; };
 		04AA17FD2B12390900F909AD /* CaloriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17FC2B12390900F909AD /* CaloriesView.swift */; };
 		04AA17FF2B13010800F909AD /* CalorieSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17FE2B13010800F909AD /* CalorieSettingView.swift */; };
+		04AA18012B132D1200F909AD /* WaterIntakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA18002B132D1200F909AD /* WaterIntakeView.swift */; };
+		04AA18032B13309800F909AD /* WaterIntakeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA18022B13309800F909AD /* WaterIntakeDetailView.swift */; };
+		04AA18052B1399FD00F909AD /* StepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA18042B1399FD00F909AD /* StepsView.swift */; };
+		04AA18072B139ADD00F909AD /* StepsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA18062B139ADD00F909AD /* StepsDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,11 +58,17 @@
 		0425245C2B10DDFD00C70B35 /* fit-inUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "fit-inUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		042524602B10DDFD00C70B35 /* fit_inUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fit_inUITests.swift; sourceTree = "<group>"; };
 		042524622B10DDFD00C70B35 /* fit_inUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fit_inUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		043F7C8D2B14877800A0432F /* DistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DistanceView.swift; path = ../DistanceView.swift; sourceTree = "<group>"; };
 		04AA17F52B11B2D000F909AD /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		04AA17F72B11C86C00F909AD /* FoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodView.swift; sourceTree = "<group>"; };
 		04AA17F92B11D4B400F909AD /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		04AA17FC2B12390900F909AD /* CaloriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesView.swift; sourceTree = "<group>"; };
 		04AA17FE2B13010800F909AD /* CalorieSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieSettingView.swift; sourceTree = "<group>"; };
+		04AA18002B132D1200F909AD /* WaterIntakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterIntakeView.swift; sourceTree = "<group>"; };
+		04AA18022B13309800F909AD /* WaterIntakeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterIntakeDetailView.swift; sourceTree = "<group>"; };
+		04AA18042B1399FD00F909AD /* StepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsView.swift; sourceTree = "<group>"; };
+		04AA18062B139ADD00F909AD /* StepsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsDetailView.swift; sourceTree = "<group>"; };
+		04AA18082B13A46300F909AD /* fit-in.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "fit-in.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,10 +119,13 @@
 		0425243F2B10DDFC00C70B35 /* fit-in */ = {
 			isa = PBXGroup;
 			children = (
+				04AA18082B13A46300F909AD /* fit-in.entitlements */,
 				042524402B10DDFC00C70B35 /* fit_inApp.swift */,
 				042524422B10DDFC00C70B35 /* ContentView.swift */,
 				042524442B10DDFD00C70B35 /* Assets.xcassets */,
 				042524492B10DDFD00C70B35 /* Persistence.swift */,
+				04AA18022B13309800F909AD /* WaterIntakeDetailView.swift */,
+				04AA18002B132D1200F909AD /* WaterIntakeView.swift */,
 				0425244B2B10DDFD00C70B35 /* fit_in.xcdatamodeld */,
 				042524462B10DDFD00C70B35 /* Preview Content */,
 				04AA17F52B11B2D000F909AD /* ProfileView.swift */,
@@ -119,6 +133,9 @@
 				04AA17F92B11D4B400F909AD /* SummaryView.swift */,
 				04AA17FC2B12390900F909AD /* CaloriesView.swift */,
 				04AA17FE2B13010800F909AD /* CalorieSettingView.swift */,
+				043F7C8D2B14877800A0432F /* DistanceView.swift */,
+				04AA18042B1399FD00F909AD /* StepsView.swift */,
+				04AA18062B139ADD00F909AD /* StepsDetailView.swift */,
 			);
 			path = "fit-in";
 			sourceTree = "<group>";
@@ -282,11 +299,16 @@
 				04AA17FA2B11D4B400F909AD /* SummaryView.swift in Sources */,
 				04AA17FF2B13010800F909AD /* CalorieSettingView.swift in Sources */,
 				04AA17FD2B12390900F909AD /* CaloriesView.swift in Sources */,
+				04AA18072B139ADD00F909AD /* StepsDetailView.swift in Sources */,
 				0425244D2B10DDFD00C70B35 /* fit_in.xcdatamodeld in Sources */,
 				0425244A2B10DDFD00C70B35 /* Persistence.swift in Sources */,
 				042524432B10DDFC00C70B35 /* ContentView.swift in Sources */,
 				04AA17F62B11B2D000F909AD /* ProfileView.swift in Sources */,
+				043F7C8E2B14877800A0432F /* DistanceView.swift in Sources */,
+				04AA18052B1399FD00F909AD /* StepsView.swift in Sources */,
+				04AA18012B132D1200F909AD /* WaterIntakeView.swift in Sources */,
 				042524412B10DDFC00C70B35 /* fit_inApp.swift in Sources */,
+				04AA18032B13309800F909AD /* WaterIntakeDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,11 +469,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "fit-in/fit-in.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"fit-in/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Your steps data used to count total calories burned";
 				INFOPLIST_KEY_NSMotionUsageDescription = "Allow Motion Access to make steps and calorie counter working";
 				INFOPLIST_KEY_NSSensorKitUsageDescription = "Allow Motion Access to make steps and calories counter working";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -477,11 +501,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "fit-in/fit-in.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"fit-in/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Your steps data used to count total calories burned";
 				INFOPLIST_KEY_NSMotionUsageDescription = "Allow Motion Access to make steps and calorie counter working";
 				INFOPLIST_KEY_NSSensorKitUsageDescription = "Allow Motion Access to make steps and calories counter working";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

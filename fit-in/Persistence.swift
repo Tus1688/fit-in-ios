@@ -24,6 +24,12 @@ struct PersistenceController {
         newUserData.calorieTarget = 2000
         newUserData.bmr = 2000
         newUserData.gender = true
+        newUserData.waterIntakeTarget = 8
+        newUserData.stepsTarget = 1500
+        
+        let newWaterIntake = WaterIntake(context: viewContext)
+        newWaterIntake.date = Calendar.current.startOfDay(for: Date())
+        newWaterIntake.amount = 5
         
         do {
             try viewContext.save()
