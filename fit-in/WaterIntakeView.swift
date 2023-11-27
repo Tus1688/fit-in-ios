@@ -33,7 +33,7 @@ struct WaterIntakeView: View {
                     ZStack {
                         Chart{
                             SectorMark(angle: .value(Text("Drank"), drank), innerRadius: .ratio(0.95))
-                                .foregroundStyle(.blue)
+                                .foregroundStyle(.green)
                             SectorMark(angle: .value (Text("Left"), max(Int(user.waterIntakeTarget) - drank, 0)), innerRadius: .ratio(0.95))
                                 .foregroundStyle(.clear)
                         }

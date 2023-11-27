@@ -49,17 +49,33 @@ struct SummaryView: View {
             if let user = users.first {
                 NavigationStack {
                     VStack(spacing: 24) {
+                        HStack {
+                            Text("Hello, \(user.firstName!)")
+                                .font(.largeTitle.bold())
+                            Spacer()
+                            NavigationLink(destination: ProfileView()) {
+                                Image(systemName: "person.crop.circle.fill")
+                                    .font(.largeTitle.bold())
+                                    .symbolRenderingMode(.multicolor)
+                                    .foregroundStyle(.gray)
+                            }
+                        }
+                        .padding(.top)
                         HStack(spacing: 24) {
                             CaloriesView()
                             WaterIntakeView()
                         }
                         HStack(spacing: 24) {
                             StepsView()
-                            WaterIntakeView()
+                            DistanceView()
                         }
                     }
                     .padding()
-                    .navigationTitle("Hello, \(user.firstName!)")
+                    .background(
+                        LinearGradient(gradient: Gradient(colors: [Color.orange, Color.clear, Color.clear, Color.clear]), startPoint: .top, endPoint: .bottom)
+                            .edgesIgnoringSafeArea(.top) // Extend gradient to the top edge
+                    )
+                    .navigationBarTitleDisplayMode(.inline)
                 }
             }
         }
