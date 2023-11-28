@@ -95,6 +95,17 @@ struct SearchBar: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.gray)
                 TextField("Search", text: $searchText)
+                
+                if !searchText.isEmpty {
+                    Button(action: {
+                        searchText = ""
+                    }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.gray)
+                            .imageScale(.medium)
+                    }
+                    .padding(.trailing, 4)
+                }
             }
             .padding(8)
             .background(Color(.systemGray6))
