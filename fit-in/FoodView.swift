@@ -8,73 +8,86 @@
 import SwiftUI
 import CoreData
 
-struct FoodEntry: Codable {
-    let FoodCategory: String
-    let FoodItem: String
-    let per100grams: String
-    let Cals_per100grams: String
-    let KJ_per100grams: String
-}
-
 struct FoodView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-        
+    
+    struct FoodItem: Codable {
+        let FoodCategory: String
+        let FoodItem: String
+        let per100grams: String
+        let Cals_per100grams: String
+        let KJ_per100grams: String
+    }
+
+    @State private var searchText: String = ""
+    @State private var totalCalory: Int = 0
+    @State private var foodItems: [FoodItem] = []
+
     var body: some View {
         NavigationStack {
             VStack {
                 Text("Food Data")
-                SearchBar()
-                ScrollView{
-                    CategoryList()
+                SearchBar(searchText: $searchText)
+                ScrollView {
+                    ForEach(filteredFoodItems, id: \.FoodItem) { food in
+                        FoodFrame(
+                            totalCalory: $totalCalory,
+                            foodName: food.FoodItem,
+                            calory: extractCalories(food.Cals_per100grams)
+                            
+                        )
+                        .padding(.bottom, 60)
+                    }
                 }
+                
+                TotalCaloryView(totalCalory: $totalCalory)
+                    .padding()
             }
             .padding()
-            
+
             Spacer()
         }
         .onAppear {
             if let path = Bundle.main.path(forResource: "FoodData", ofType: "json") {
                 do {
-                    let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                    let data = try Data(contentsOf: URL(fileURLWithPath: path))
                     let decoder = JSONDecoder()
-                    let foodEntries = try decoder.decode([FoodEntry].self, from: data)
+                    let tempFoodItems = try decoder.decode([FoodItem].self, from: data)
 
-                    for entry in foodEntries {
-                        saveFoodData(
-                            foodName: entry.FoodItem,
-                            foodCategory: entry.FoodCategory,
-                            foodCalory: entry.Cals_per100grams
-                        )
+                    for newItem in tempFoodItems {
+                        if !foodItems.contains(where: { $0.FoodItem == newItem.FoodItem }) {
+                            foodItems.append(newItem)
+                        }
                     }
                 } catch {
                     print("Error loading data from FoodData.json: \(error.localizedDescription)")
                 }
             }
         }
-    }
-    
-    private func saveFoodData(foodName: String, foodCategory: String, foodCalory: String) {
-        do {
-            let newFoodData = FoodData(context: viewContext)
-            newFoodData.foodName = foodName
-            newFoodData.foodCategory = foodCategory
-
-            if let caloryValueString = foodCalory.components(separatedBy: " ").first,
-               let caloryValue = Int16(caloryValueString) {
-                newFoodData.foodCalory = caloryValue
+        
+        var filteredFoodItems: [FoodItem] {
+            if searchText.isEmpty {
+                return foodItems.sorted { $0.FoodItem < $1.FoodItem }
             } else {
-                print("Error parsing foodCalory string.")
-            }
+                let startsWithSearchText = foodItems.filter { $0.FoodItem.lowercased().hasPrefix(searchText.lowercased()) }
+                let containsSearchText = foodItems.filter { !$0.FoodItem.lowercased().hasPrefix(searchText.lowercased()) && $0.FoodItem.lowercased().contains(searchText.lowercased()) }
 
-            try viewContext.save()
-        } catch {
-            print("Error saving food data: \(error.localizedDescription)")
+                let combinedItems = (startsWithSearchText + containsSearchText)
+                return combinedItems.sorted { $0.FoodItem < $1.FoodItem }
+            }
         }
     }
 }
 
+func extractCalories(_ caloryString: String) -> Int {
+    if let firstWord = caloryString.split(separator: " ").first,
+       let calories = Int(firstWord) {
+        return calories
+    }
+    return 0
+}
+
 struct SearchBar: View {
-    @State private var searchText: String = ""
+    @Binding var searchText: String
 
     var body: some View {
         GeometryReader { geometry in
@@ -92,75 +105,71 @@ struct SearchBar: View {
     }
 }
 
-struct CategoryList: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(
-        entity: FoodData.entity(),
-        sortDescriptors: [],
-        predicate: NSPredicate(value: true),
-        animation: .default
-    )
+struct FoodFrame: View {
+    @Binding var totalCalory: Int
+    @State private var quantity: Int = 0
     
-    var foodData: FetchedResults<FoodData>
-    
-    var categories: [String] {
-        Array(Set(foodData.compactMap { $0.foodCategory }))
-    }
+    let foodName: String
+    let calory: Int
 
     var body: some View {
-        LazyVGrid(columns: Array(repeating: GridItem(), count: 3), spacing: 12) {
-            ForEach(categories, id: \.self) { category in
-                NavigationLink(destination: FoodDetail(category: category)) {
-                    CategoryFrame(category: category)
+        GeometryReader { geometry in
+            HStack {
+                Image(systemName: "fork.knife")
+                    .resizable()
+                    .padding(.trailing, 10)
+                    .padding(.vertical, 5)
+                    .frame(width: 40, height: 40)
+                
+                VStack(alignment: .leading) {
+                    Text(foodName)
+                        .font(.headline)
+                    Text("\(calory) calories per 100 grams")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .italic()
                 }
+                
+                Spacer()
+                HStack {
+                    Button("-") {
+                        if quantity > 0 {
+                            quantity -= 1
+                            totalCalory -= calory
+                        }
+                    }
+                    .padding(5)
+                    
+                    Text("\(quantity)")
+                    
+                    Button("+") {
+                        quantity += 1
+                        totalCalory += calory
+                    }
+                    .padding(5)
+                }
+                .background(Color(.systemGray6))
+                .cornerRadius(4)
             }
+            .padding()
         }
     }
 }
 
-struct CategoryFrame: View {
-    let category: String
-    
-    var body: some View {
-        VStack {
-            Spacer()
-            Text(category)
-                .font(.caption)
-                .multilineTextAlignment(.center)
-                .foregroundColor(.black)
-        }
-        .padding()
-        .frame(width: 110, height: 140)
-        .background(Color.white)
-        .cornerRadius(8)
-        .overlay(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.gray, lineWidth: 0.1)
-        )
-        .shadow(
-            color: Color.gray.opacity(0.5),
-            radius: 3,
-            x: 0,
-            y: 2
-        )
-    }
-}
-
-struct FoodDetail: View {
-    let category: String
+struct TotalCaloryView: View {
+    @Binding var totalCalory: Int
 
     var body: some View {
-        VStack {
-            Text("Food Detail for \(category)")
-                .font(.title)
-                .padding()
+        if totalCalory > 0 {
+            Text("Total: \(totalCalory) calories")
+        } else {
+            Text("Total: \(totalCalory) calory")
         }
-        .navigationTitle("Food Detail")
     }
 }
 
 struct FoodView_Previews: PreviewProvider {
     static var previews: some View {
-        FoodView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        FoodView()
     }
 }
