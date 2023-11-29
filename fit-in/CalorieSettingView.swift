@@ -56,7 +56,6 @@ struct CalorieSettingView: View {
                         .bold()
                 }
                 Spacer()
-                Spacer()
             }
             .navigationTitle("Your Daily Intake")
             .onAppear {
@@ -109,5 +108,4 @@ struct CalorieSettingView: View {
 
 #Preview {
     CalorieSettingView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    
 }

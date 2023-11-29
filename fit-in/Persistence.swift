@@ -31,6 +31,28 @@ struct PersistenceController {
         newWaterIntake.date = Calendar.current.startOfDay(for: Date())
         newWaterIntake.amount = 5
         
+        let randomCalories = [100.5, 200.2, 300.1, 400.7, 500.5]
+        let randomFood = ["food A", "food B", "food C", "food D"]
+        let today = Calendar.current.startOfDay(for: Date())
+        
+        for i in 0..<4 {
+            let newCalorieIntake = EatingLog(context: viewContext)
+            
+            newCalorieIntake.id = UUID()
+            newCalorieIntake.timestamp = today
+            newCalorieIntake.calorie = randomCalories.randomElement()!
+            newCalorieIntake.foodName = randomFood.randomElement()
+        }
+        
+        for i in 1..<7 {
+            let newCalorieIntake = EatingLog(context: viewContext)
+            
+            newCalorieIntake.id = UUID()
+            newCalorieIntake.timestamp = Calendar.current.date(byAdding: .day, value: -1 * i, to: Date())
+            newCalorieIntake.calorie = randomCalories.randomElement()!
+            newCalorieIntake.foodName = randomFood.randomElement()
+        }
+        
         do {
             try viewContext.save()
         } catch {

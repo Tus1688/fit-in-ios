@@ -82,8 +82,8 @@ struct WaterIntakeView: View {
         // Note: Times are printed in UTC. Depending on where you live it won't print 00:00:00 but it will work with UTC times which can be converted to local time
         
         // Set predicate as date being today's date
-        let fromPredicate = NSPredicate(format: "%@ >= %K", dateFrom as NSDate, #keyPath(WaterIntake.date))
-        let toPredicate = NSPredicate(format: "%K < %@", #keyPath(WaterIntake.date), dateTo! as NSDate)
+        let fromPredicate = NSPredicate(format: "date >= %@", dateFrom as NSDate)
+        let toPredicate = NSPredicate(format: "date < %@", dateTo! as NSDate)
         let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate])
         request.predicate = datePredicate
         
@@ -93,6 +93,7 @@ struct WaterIntakeView: View {
             if data.isEmpty {
                 //  If there is no data, create a new data with today's date
                 let newWaterIntake = WaterIntake(context: viewContext)
+                newWaterIntake.id = UUID()
                 newWaterIntake.date = Calendar.current.startOfDay(for: Date())
                 newWaterIntake.amount = 0
                 drank = 0
