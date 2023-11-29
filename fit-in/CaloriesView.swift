@@ -96,9 +96,11 @@ struct CaloriesView: View {
             let data = try viewContext.fetch(request)
             
             if !data.isEmpty {
+                var temp = 0.0
                 for x in data {
-                    eaten += x.calorie
+                    temp += x.calorie
                 }
+                eaten = temp
             }
         } catch {
             print("Error fetching data: \(error.localizedDescription)")

@@ -20,17 +20,20 @@ struct CaloriesDetailView: View {
             VStack(spacing: 16){
                 if let todayEaten = todayEaten {
                     List {
-                        ForEach(todayEaten) { log in
-                            VStack(alignment: .leading) {
-                                Text(log.foodName!)
-                                    .font(.headline)
-                                    .fontWeight(.heavy)
+                        ForEach(todayEaten, id: \.self) { log in
+                            HStack(alignment: .bottom) {
+                                VStack(alignment: .leading) {
+                                    Text(log.foodName!)
+                                        .font(.headline)
+                                        .fontWeight(.heavy)
+                                    Text(String(format: "%.2f Kcal", log.calorie))
+                                        .font(.subheadline)
+                                        .fontWeight(.semibold)
+                                }
+                                Spacer()
                                 Text("\(log.timestamp!, formatter: dateFormatter)")
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
-                                Text(String(format: "%.2f Kcal", log.calorie))
-                                    .font(.subheadline)
-                                    .fontWeight(.medium)
                             }
                         }
                         .onDelete(perform: deleteEatingLog)
