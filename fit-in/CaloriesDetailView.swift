@@ -15,8 +15,6 @@ struct CaloriesDetailView: View {
     @State private var todayEaten: [EatingLog]?
     
     var body: some View {
-        @Environment(\.horizontalSizeClass) var sizeCategory
-        
         NavigationStack {
             VStack{
                 if let todayEaten = todayEaten {
@@ -169,7 +167,7 @@ struct WeeklyCaloriesView: View {
         calendar.timeZone = NSTimeZone.local
         
         // Get today's beginning & end
-        let today = calendar.startOfDay(for: Date())
+        let today = Date()
         
         // Calculate the date 7 days ago from today
         guard let sevenDaysAgo = calendar.date(byAdding: .day, value: -7, to: today) else {
