@@ -8,20 +8,20 @@
 import SwiftUI
 import CoreData
 
-struct FoodView: View {
-    
-    struct FoodItem: Codable {
-        let FoodCategory: String
-        let FoodItem: String
-        let per100grams: String
-        let Cals_per100grams: String
-        let KJ_per100grams: String
-    }
+struct FoodItem: Codable {
+    let FoodCategory: String
+    let FoodItem: String
+    let per100grams: String
+    let Cals_per100grams: String
+    let KJ_per100grams: String
+    var quantity: Int?
+}
 
+struct FoodView: View {
     @State private var searchText: String = ""
     @State private var totalCalory: Int = 0
     @State private var foodItems: [FoodItem] = []
-
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -31,15 +31,15 @@ struct FoodView: View {
                     ForEach(filteredFoodItems, id: \.FoodItem) { food in
                         FoodFrame(
                             totalCalory: $totalCalory,
+                            foodItems: $foodItems,
                             foodName: food.FoodItem,
                             calory: extractCalories(food.Cals_per100grams)
-                            
                         )
                         .padding(.bottom, 60)
                     }
                 }
                 
-                TotalCaloryView(totalCalory: $totalCalory)
+                TotalCaloryView(totalCalory: $totalCalory, foodItems: $foodItems)
                     .padding()
             }
             .padding()
@@ -117,8 +117,9 @@ struct SearchBar: View {
 }
 
 struct FoodFrame: View {
-    @Binding var totalCalory: Int
     @State private var quantity: Int = 0
+    @Binding var totalCalory: Int
+    @Binding var foodItems: [FoodItem]
     
     let foodName: String
     let calory: Int
@@ -147,6 +148,10 @@ struct FoodFrame: View {
                         if quantity > 0 {
                             quantity -= 1
                             totalCalory -= calory
+                            
+                            if let index = foodItems.firstIndex(where: { $0.FoodItem == foodName }) {
+                                foodItems[index].quantity = quantity
+                            }
                         }
                     }
                     .padding(5)
@@ -156,6 +161,10 @@ struct FoodFrame: View {
                     Button("+") {
                         quantity += 1
                         totalCalory += calory
+                        
+                        if let index = foodItems.firstIndex(where: { $0.FoodItem == foodName }) {
+                            foodItems[index].quantity = quantity
+                        }
                     }
                     .padding(5)
                 }
@@ -168,13 +177,41 @@ struct FoodFrame: View {
 }
 
 struct TotalCaloryView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
     @Binding var totalCalory: Int
+    @Binding var foodItems: [FoodItem]
 
     var body: some View {
-        if totalCalory > 0 {
-            Text("Total: \(totalCalory) calories")
-        } else {
-            Text("Total: \(totalCalory) calory")
+        HStack {
+            if totalCalory > 0 {
+                Text("Total: \(totalCalory) calories")
+            } else {
+                Text("Total: \(totalCalory) calory")
+            }
+            
+            Spacer()
+            
+            Button("Save") {
+                for var foodItem in foodItems {
+                    if let quantity = foodItem.quantity, quantity > 0 {
+                        let eatingLog = EatingLog(context: viewContext)
+                        eatingLog.calorie = Double(quantity * extractCalories(foodItem.Cals_per100grams))
+                        eatingLog.foodName = foodItem.FoodItem
+                        eatingLog.id = UUID()
+                        eatingLog.timestamp = Date()
+                        
+                        do {
+                            try viewContext.save()
+                            foodItem.quantity = 0
+                        } catch {
+                            print("Error saving to Core Data: \(error.localizedDescription)")
+                        }
+                    }
+                }
+                
+                totalCalory = 0
+            }
         }
     }
 }
