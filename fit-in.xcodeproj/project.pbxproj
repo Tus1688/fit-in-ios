@@ -28,7 +28,6 @@
 		04AA18012B132D1200F909AD /* WaterIntakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA18002B132D1200F909AD /* WaterIntakeView.swift */; };
 		04AA18032B13309800F909AD /* WaterIntakeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA18022B13309800F909AD /* WaterIntakeDetailView.swift */; };
 		04AA18052B1399FD00F909AD /* StepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA18042B1399FD00F909AD /* StepsView.swift */; };
-		04AA18072B139ADD00F909AD /* StepsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA18062B139ADD00F909AD /* StepsDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +72,6 @@
 		04AA18002B132D1200F909AD /* WaterIntakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterIntakeView.swift; sourceTree = "<group>"; };
 		04AA18022B13309800F909AD /* WaterIntakeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterIntakeDetailView.swift; sourceTree = "<group>"; };
 		04AA18042B1399FD00F909AD /* StepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsView.swift; sourceTree = "<group>"; };
-		04AA18062B139ADD00F909AD /* StepsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsDetailView.swift; sourceTree = "<group>"; };
 		04AA18082B13A46300F909AD /* fit-in.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "fit-in.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,7 +142,6 @@
 				043F7C8F2B1723E500A0432F /* CaloriesDetailView.swift */,
 				043F7C8D2B14877800A0432F /* DistanceView.swift */,
 				04AA18042B1399FD00F909AD /* StepsView.swift */,
-				04AA18062B139ADD00F909AD /* StepsDetailView.swift */,
 			);
 			path = "fit-in";
 			sourceTree = "<group>";
@@ -309,7 +306,6 @@
 				04AA17FA2B11D4B400F909AD /* SummaryView.swift in Sources */,
 				04AA17FF2B13010800F909AD /* CalorieSettingView.swift in Sources */,
 				04AA17FD2B12390900F909AD /* CaloriesView.swift in Sources */,
-				04AA18072B139ADD00F909AD /* StepsDetailView.swift in Sources */,
 				043F7CCD2B18EBA100A0432F /* FoodDetailView.swift in Sources */,
 				0425244D2B10DDFD00C70B35 /* fit_in.xcdatamodeld in Sources */,
 				0425244A2B10DDFD00C70B35 /* Persistence.swift in Sources */,
