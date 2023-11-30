@@ -16,6 +16,7 @@
 		042524572B10DDFD00C70B35 /* fit_inTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042524562B10DDFD00C70B35 /* fit_inTests.swift */; };
 		042524612B10DDFD00C70B35 /* fit_inUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042524602B10DDFD00C70B35 /* fit_inUITests.swift */; };
 		042524632B10DDFD00C70B35 /* fit_inUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042524622B10DDFD00C70B35 /* fit_inUITestsLaunchTests.swift */; };
+		0435F4B72B14EDFD0021A3B0 /* FoodData.json in Resources */ = {isa = PBXBuildFile; fileRef = 0435F4B62B14EDFD0021A3B0 /* FoodData.json */; };
 		043F7C8E2B14877800A0432F /* DistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F7C8D2B14877800A0432F /* DistanceView.swift */; };
 		043F7C902B1723E500A0432F /* CaloriesDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F7C8F2B1723E500A0432F /* CaloriesDetailView.swift */; };
 		04AA17F62B11B2D000F909AD /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17F52B11B2D000F909AD /* ProfileView.swift */; };
@@ -59,6 +60,7 @@
 		0425245C2B10DDFD00C70B35 /* fit-inUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "fit-inUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		042524602B10DDFD00C70B35 /* fit_inUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fit_inUITests.swift; sourceTree = "<group>"; };
 		042524622B10DDFD00C70B35 /* fit_inUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fit_inUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0435F4B62B14EDFD0021A3B0 /* FoodData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = FoodData.json; path = ../../../Desktop/FoodData.json; sourceTree = "<group>"; };
 		043F7C8D2B14877800A0432F /* DistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DistanceView.swift; path = ../DistanceView.swift; sourceTree = "<group>"; };
 		043F7C8F2B1723E500A0432F /* CaloriesDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesDetailView.swift; sourceTree = "<group>"; };
 		04AA17F52B11B2D000F909AD /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		0425243F2B10DDFC00C70B35 /* fit-in */ = {
 			isa = PBXGroup;
 			children = (
+				0435F4B62B14EDFD0021A3B0 /* FoodData.json */,
 				04AA18082B13A46300F909AD /* fit-in.entitlements */,
 				042524402B10DDFC00C70B35 /* fit_inApp.swift */,
 				042524422B10DDFC00C70B35 /* ContentView.swift */,
@@ -272,6 +275,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0435F4B72B14EDFD0021A3B0 /* FoodData.json in Resources */,
 				042524482B10DDFD00C70B35 /* Preview Assets.xcassets in Resources */,
 				042524452B10DDFD00C70B35 /* Assets.xcassets in Resources */,
 			);
