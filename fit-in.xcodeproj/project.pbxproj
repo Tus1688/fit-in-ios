@@ -18,6 +18,7 @@
 		042524632B10DDFD00C70B35 /* fit_inUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042524622B10DDFD00C70B35 /* fit_inUITestsLaunchTests.swift */; };
 		043F7C8E2B14877800A0432F /* DistanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F7C8D2B14877800A0432F /* DistanceView.swift */; };
 		043F7C902B1723E500A0432F /* CaloriesDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043F7C8F2B1723E500A0432F /* CaloriesDetailView.swift */; };
+		0454093E2B18AF19002760C7 /* sleepTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0454093D2B18AF19002760C7 /* sleepTracker.swift */; };
 		04AA17F62B11B2D000F909AD /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17F52B11B2D000F909AD /* ProfileView.swift */; };
 		04AA17F82B11C86C00F909AD /* FoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17F72B11C86C00F909AD /* FoodView.swift */; };
 		04AA17FA2B11D4B400F909AD /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AA17F92B11D4B400F909AD /* SummaryView.swift */; };
@@ -61,6 +62,7 @@
 		042524622B10DDFD00C70B35 /* fit_inUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fit_inUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		043F7C8D2B14877800A0432F /* DistanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DistanceView.swift; path = ../DistanceView.swift; sourceTree = "<group>"; };
 		043F7C8F2B1723E500A0432F /* CaloriesDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaloriesDetailView.swift; sourceTree = "<group>"; };
+		0454093D2B18AF19002760C7 /* sleepTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sleepTracker.swift; sourceTree = "<group>"; };
 		04AA17F52B11B2D000F909AD /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		04AA17F72B11C86C00F909AD /* FoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodView.swift; sourceTree = "<group>"; };
 		04AA17F92B11D4B400F909AD /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				043F7C8F2B1723E500A0432F /* CaloriesDetailView.swift */,
 				043F7C8D2B14877800A0432F /* DistanceView.swift */,
 				04AA18042B1399FD00F909AD /* StepsView.swift */,
+				0454093D2B18AF19002760C7 /* sleepTracker.swift */,
 				04AA18062B139ADD00F909AD /* StepsDetailView.swift */,
 			);
 			path = "fit-in";
@@ -300,6 +303,7 @@
 			files = (
 				04AA17F82B11C86C00F909AD /* FoodView.swift in Sources */,
 				04AA17FA2B11D4B400F909AD /* SummaryView.swift in Sources */,
+				0454093E2B18AF19002760C7 /* sleepTracker.swift in Sources */,
 				04AA17FF2B13010800F909AD /* CalorieSettingView.swift in Sources */,
 				04AA17FD2B12390900F909AD /* CaloriesView.swift in Sources */,
 				04AA18072B139ADD00F909AD /* StepsDetailView.swift in Sources */,
