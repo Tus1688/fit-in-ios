@@ -72,7 +72,7 @@ struct SummaryView: View {
                     }
                     .padding()
                     .background(
-                        LinearGradient(gradient: Gradient(colors: [Color.orange, Color.clear, Color.clear, Color.clear]), startPoint: .top, endPoint: .bottom)
+                        LinearGradient(gradient: Gradient(colors: [Color.orange.opacity(0.9), Color.clear, Color.clear, Color.clear]), startPoint: .top, endPoint: .bottom)
                             .edgesIgnoringSafeArea(.top) // Extend gradient to the top edge
                     )
                     .navigationBarTitleDisplayMode(.inline)
