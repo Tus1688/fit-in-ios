@@ -37,7 +37,10 @@ struct CalorieSettingView: View {
                         
                         Text("\(String(format: "%.f", target))")
                             .font(.title)
-                            .bold()
+                            .fontWeight(.bold)
+                            .keyboardType(.numberPad)
+                            .frame(width: 120)
+                            .multilineTextAlignment(.center)
                         
                         Button {
                             target += 100

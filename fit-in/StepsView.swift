@@ -20,53 +20,50 @@ struct StepsView: View {
     @State private var steps = 0.0
     
     var body: some View {
-        NavigationLink(destination: StepsDetailView()) {
-            if let user = users.first {
-                VStack {
-                    HStack {
-                        Text("Steps")
+        if let user = users.first {
+            VStack {
+                HStack {
+                    Text("Steps")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                }
+                ZStack {
+                    Chart {
+                        SectorMark(angle: .value(Text("Stepped"), steps), innerRadius: .ratio(0.95))
+                            .foregroundStyle(.green)
+                        SectorMark(angle: .value (Text("Left"), max(Int(user.stepsTarget) - Int(steps), 0)), innerRadius: .ratio(0.95))
+                            .foregroundStyle(.clear)
+                    }
+                    VStack {
+                        Text(String(format: "%d", max(Int(user.stepsTarget) - Int(steps), 0)))
                             .font(.headline)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.leading)
-                        Spacer()
-                    }
-                    ZStack {
-                        Chart {
-                            SectorMark(angle: .value(Text("Stepped"), steps), innerRadius: .ratio(0.95))
-                                .foregroundStyle(.green)
-                            SectorMark(angle: .value (Text("Left"), max(Int(user.stepsTarget) - Int(steps), 0)), innerRadius: .ratio(0.95))
-                                .foregroundStyle(.clear)
-                        }
-                        VStack {
-                            Text(String(format: "%d", max(Int(user.stepsTarget) - Int(steps), 0)))
-                                .font(.headline)
-                                .fontWeight(.black)
-                            Text("steps left")
-                                .font(.caption)
-                                .fontWeight(.medium)
-                        }
-                    }
-                    .padding(.vertical)
-                    HStack {
-                        Text("Steps")
+                            .fontWeight(.black)
+                        Text("steps left")
                             .font(.caption)
-                            .fontWeight(.semibold)
-                            .italic()
-                        Spacer()
-                        Text(String(Int(steps)))
-                            .font(.caption)
-                            .fontWeight(.semibold)
-                            .italic()
+                            .fontWeight(.medium)
                     }
                 }
-                .padding()
-                .background(.ultraThickMaterial)
-                .cornerRadius(10)
+                .padding(.vertical)
+                HStack {
+                    Text("Steps")
+                        .font(.caption)
+                        .fontWeight(.semibold)
+                        .italic()
+                    Spacer()
+                    Text(String(Int(steps)))
+                        .font(.caption)
+                        .fontWeight(.semibold)
+                        .italic()
+                }
             }
-        }
-        .buttonStyle(PlainButtonStyle())
-        .onAppear {
-            checkHealthKitAuthorization()
+            .padding()
+            .background(.ultraThickMaterial)
+            .cornerRadius(10)
+            .onAppear {
+                checkHealthKitAuthorization()
+            }
         }
     }
     
@@ -93,7 +90,7 @@ struct StepsView: View {
             }
         }
     }
-
+    
     // Function to fetch total steps for today
     private func fetchStepsData() {
         let healthStore = HKHealthStore()
