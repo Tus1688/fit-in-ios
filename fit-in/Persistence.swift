@@ -53,6 +53,15 @@ struct PersistenceController {
             newCalorieIntake.foodName = randomFood.randomElement()
         }
         
+        for i in 1..<7 {
+            let newCalorieIntake = EatingLog(context: viewContext)
+            
+            newCalorieIntake.id = UUID()
+            newCalorieIntake.timestamp = Calendar.current.date(byAdding: .day, value: -1 * i, to: Date())
+            newCalorieIntake.calorie = randomCalories.randomElement()!
+            newCalorieIntake.foodName = randomFood.randomElement()
+        }
+        
         do {
             try viewContext.save()
         } catch {

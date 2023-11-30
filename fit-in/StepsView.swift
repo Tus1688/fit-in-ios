@@ -103,8 +103,12 @@ struct StepsView: View {
             return
         }
         
-        let startOfToday = Calendar.current.startOfDay(for: Date())
-        let endOfToday = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday)!
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.local
+        
+        // Get today's beginning & end
+        let startOfToday = calendar.startOfDay(for: Date()) // eg. 2016-10-10 00:00:00
+        let endOfToday = calendar.date(byAdding: .day, value: 1, to: startOfToday)
         
         let predicate = HKQuery.predicateForSamples(withStart: startOfToday, end: endOfToday, options: .strictStartDate)
         
