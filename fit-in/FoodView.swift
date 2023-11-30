@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct FoodItem: Codable, Equatable {
+struct FoodItem: Codable {
     let FoodCategory: String
     let FoodItem: String
     let per100grams: String
@@ -28,23 +28,21 @@ struct FoodView: View {
                 Text("Food Data")
                 SearchBar(searchText: $searchText)
                 ScrollView {
-                    ForEach(filteredFoodItems, id: \.FoodItem) { food in
+                    ForEach(filteredFoodItems.indices, id: \.self) { index in
                         FoodFrame(
                             totalCalory: $totalCalory,
-                            foodItems: $foodItems,
-                            foodName: food.FoodItem,
-                            calory: extractCalories(food.Cals_per100grams)
+                            quantity: $foodItems[index].quantity,
+                            foodName: foodItems[index].FoodItem,
+                            calory: extractCalories(foodItems[index].Cals_per100grams)
                         )
                         .padding(.bottom, 60)
                     }
                 }
                 
-                TotalCaloryView(totalCalory: $totalCalory, foodItems: $foodItems)
+                TotalCaloryView(totalCalory: $totalCalory, foodItems: $foodItems, searchText: $searchText)
                     .padding()
             }
             .padding()
-
-            Spacer()
         }
         .onAppear {
             if let path = Bundle.main.path(forResource: "FoodData", ofType: "json") {
@@ -117,19 +115,10 @@ struct SearchBar: View {
 }
 
 struct FoodFrame: View {
-    @State private var quantity: Int = 0
     @Binding var totalCalory: Int
-    @Binding var foodItems: [FoodItem]
-    
+    @Binding var quantity: Int?
     let foodName: String
     let calory: Int
-    
-    private func getCurrentQuantity() -> Int {
-        if let index = foodItems.firstIndex(where: { $0.FoodItem == foodName }) {
-            return foodItems[index].quantity ?? 0
-        }
-        return 0
-    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -152,26 +141,24 @@ struct FoodFrame: View {
                 Spacer()
                 HStack {
                     Button("-") {
-                        if quantity > 0 {
-                            let currentQuantity = getCurrentQuantity()
+                        let currentQuantity = quantity ?? 0
+                        if currentQuantity > 0 {
                             totalCalory -= calory
                             quantity = currentQuantity - 1
-                            if let index = foodItems.firstIndex(where: { $0.FoodItem == foodName }) {
-                                foodItems[index].quantity = quantity
-                            }
                         }
                     }
                     .padding(5)
-
-                    Text("\(getCurrentQuantity())")
+                    
+                    if let currentQuantity = quantity {
+                        Text("\(currentQuantity)")
+                    } else {
+                        Text("0")
+                    }
 
                     Button("+") {
-                        let currentQuantity = getCurrentQuantity()
+                        let currentQuantity = quantity ?? 0
                         totalCalory += calory
                         quantity = currentQuantity + 1
-                        if let index = foodItems.firstIndex(where: { $0.FoodItem == foodName }) {
-                            foodItems[index].quantity = quantity
-                        }
                     }
                     .padding(5)
                 }
@@ -188,6 +175,7 @@ struct TotalCaloryView: View {
     
     @Binding var totalCalory: Int
     @Binding var foodItems: [FoodItem]
+    @Binding var searchText: String
 
     var body: some View {
         HStack {
@@ -210,14 +198,14 @@ struct TotalCaloryView: View {
                         
                         do {
                             try viewContext.save()
-                            foodItem.quantity = 0
                         } catch {
                             print("Error saving to Core Data: \(error.localizedDescription)")
                         }
+                        
+                        foodItem.quantity = nil
+                        searchText = ""
                     }
                 }
-                
-                totalCalory = 0
             }
         }
     }
