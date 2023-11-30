@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct FoodItem: Codable {
+struct FoodItem: Codable, Equatable {
     let FoodCategory: String
     let FoodItem: String
     let per100grams: String
@@ -123,6 +123,13 @@ struct FoodFrame: View {
     
     let foodName: String
     let calory: Int
+    
+    private func getCurrentQuantity() -> Int {
+        if let index = foodItems.firstIndex(where: { $0.FoodItem == foodName }) {
+            return foodItems[index].quantity ?? 0
+        }
+        return 0
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -146,22 +153,22 @@ struct FoodFrame: View {
                 HStack {
                     Button("-") {
                         if quantity > 0 {
-                            quantity -= 1
+                            let currentQuantity = getCurrentQuantity()
                             totalCalory -= calory
-                            
+                            quantity = currentQuantity - 1
                             if let index = foodItems.firstIndex(where: { $0.FoodItem == foodName }) {
                                 foodItems[index].quantity = quantity
                             }
                         }
                     }
                     .padding(5)
-                    
-                    Text("\(quantity)")
-                    
+
+                    Text("\(getCurrentQuantity())")
+
                     Button("+") {
-                        quantity += 1
+                        let currentQuantity = getCurrentQuantity()
                         totalCalory += calory
-                        
+                        quantity = currentQuantity + 1
                         if let index = foodItems.firstIndex(where: { $0.FoodItem == foodName }) {
                             foodItems[index].quantity = quantity
                         }
